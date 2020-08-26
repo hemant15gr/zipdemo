@@ -21,7 +21,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       CodeUri: target/DemoJava-0.0.1-SNAPSHOT.zip
-      Handler: book.pipeline.bulk.BulkEventsLambda::handler
+      Handler: demo.test::handler
       Environment:
         Variables:
           FAN_OUT_TOPIC: !Ref FanOutTopic
@@ -41,7 +41,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       CodeUri: target/DemoJava-0.0.1-SNAPSHOT.zip
-      Handler: book.pipeline.single.SingleEventLambda::handler
+      Handler: demo.test::handler
       Events:
         SnsEvent:
           Type: SNS
