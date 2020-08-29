@@ -13,6 +13,17 @@ Resources:
     Type: AWS::S3::Bucket
     Properties:
       BucketName: !Sub ${AWS::StackName}-${AWS::AccountId}-${AWS::Region}-start
+      Environment:
+        Variables:
+          weeklyupdate: Friday
+          clientid: ce5b2c39d7681153b059b561083f788328fec076a001df62fc41a9d3eef5a6fe
+          clientsecret: 06127a29ea2dfd1e32fc2b0ba44aacdaf0978c77691e7f00d97bd3172a9408cc
+          urlPrefix: jdbc:db2:
+          database: udbprod
+          host: pbudwprod
+          port: 7450
+          dbUser: idmgtdb2
+          dbPassword: 35g8EdSH
 
   FanOutTopic:
     Type: AWS::SNS::Topic
@@ -31,11 +42,11 @@ Resources:
       - SNSPublishMessagePolicy:
           TopicName: !GetAtt FanOutTopic.TopicName
       Events:
-        S3Event:
-          Type: S3
+        Schedule1:
+          Type: Schedule
           Properties:
-            Bucket: !Ref PipelineStartBucket
-            Events: s3:ObjectCreated:*
+            Schedule: cron(0 7 * * ? *)
+
 
   SingleEventLambda:
     Type: AWS::Serverless::Function
