@@ -19,6 +19,13 @@ Globals:
         port: 7450
         dbUser: idmgtdb2
         dbPassword: 35g8EdSH
+ FanOutTopic:
+    Type: Schedule
+  Properties:
+    Schedule: cron(0 7 * * ? *)
+    Name: TestSchedule
+    Description: test schedule
+    Enabled: True        
 
 Resources:
   PipelineStartBucket:
@@ -31,11 +38,19 @@ Resources:
     Properties:
       CodeUri: target/DemoJava-0.0.1-SNAPSHOT.jar
       Handler: demo.test::handler
+      Environment:
+        Variables:
+          FAN_OUT_TOPIC: !Ref FanOutTopic
+      Policies:
+      - S3ReadPolicy:
+          BucketName: !Sub ${AWS::StackName}-${AWS::AccountId}-${AWS::Region}-start
+      - SNSPublishMessagePolicy:
+          TopicName: !GetAtt FanOutTopic.TopicName
       Events:
         Schedule1:
           Type: Schedule
           Properties:
-          Schedule: cron(0 7 * * ? *)
+            Topic: !Ref FanOutTopic
 
 
   SingleEventLambda:
@@ -47,4 +62,4 @@ Resources:
         Schedule1:
           Type: Schedule
           Properties:
-          Schedule: cron(0 7 * * ? *)
+            Topic: !Ref FanOutTopic
