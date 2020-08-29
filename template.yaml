@@ -18,21 +18,20 @@ Globals:
         host: pbudwprod
         port: 7450
         dbUser: idmgtdb2
-        dbPassword: 35g8EdSH
-        
- FanOutTopic:
-    Type: AWS::Events::Rule
-  Properties:
-    Schedule: "cron(0 7 * * ? *)"
-    Name: TestSchedule
-    Description: test schedule
-    Enabled: True        
+        dbPassword: 35g8EdSH     
 
 Resources:
   PipelineStartBucket:
     Type: AWS::S3::Bucket
     Properties:
       BucketName: !Sub ${AWS::StackName}-${AWS::AccountId}-${AWS::Region}-start
+   FanOutTopic:
+    Type: AWS::Events::Rule
+  Properties:
+    Schedule: "cron(0 7 * * ? *)"
+    Name: TestSchedule
+    Description: test schedule
+    Enabled: True       
              
   BulkEventsLambda:
     Type: AWS::Serverless::Function
