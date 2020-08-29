@@ -15,9 +15,7 @@ phases:
       - mvn clean package
       - sam package --template-file template.yaml --s3-bucket ${SAM_BUCKET} --output-template-file packaged-template.yaml
       - sam deploy --template-file packaged-template.yaml --stack-name ${APP_STACK_NAME} --capabilities CAPABILITY_IAM --no-fail-on-empty-changeset
-artifacts:
-  files:
-    - packaged-template.yaml
+
 cache:
   # Cache maven and Python downloads
   paths:
