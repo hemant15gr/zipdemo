@@ -19,20 +19,15 @@ Globals:
         port: 7450
         dbUser: idmgtdb2
         dbPassword: 35g8EdSH     
-
 Resources:
   PipelineStartBucket:
     Type: AWS::S3::Bucket
     Properties:
       BucketName: !Sub ${AWS::StackName}-${AWS::AccountId}-${AWS::Region}-start
-   FanOutTopic:
-    Type: AWS::Events::Rule
-  Properties:
-    Schedule: "cron(0 7 * * ? *)"
-    Name: TestSchedule
-    Description: test schedule
-    Enabled: True       
-             
+
+  FanOutTopic:
+    Type: AWS::SNS::Topic
+
   BulkEventsLambda:
     Type: AWS::Serverless::Function
     Properties:
@@ -47,11 +42,11 @@ Resources:
       - SNSPublishMessagePolicy:
           TopicName: !GetAtt FanOutTopic.TopicName
       Events:
-        Schedule1:
-          Type: Schedule
+        S3Event:
+          Type: S3
           Properties:
-            Topic: !Ref FanOutTopic
-
+            Bucket: !Ref PipelineStartBucket
+            Events: s3:ObjectCreated:*
 
   SingleEventLambda:
     Type: AWS::Serverless::Function
@@ -59,7 +54,7 @@ Resources:
       CodeUri: target/DemoJava-0.0.1-SNAPSHOT.jar
       Handler: demo.test::handler
       Events:
-        Schedule1:
-          Type: Schedule
+        SnsEvent:
+          Type: SNS
           Properties:
             Topic: !Ref FanOutTopic
