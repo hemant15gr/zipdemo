@@ -30,7 +30,7 @@ Resources:
       Handler: demo.test::handler
       Environment:
         Variables:
-          urlPrefix: jdbc:db2:
+          urlPrefix: jdbc:db2
           database: udbprod
           host: pbudwprod
           port: 7450
