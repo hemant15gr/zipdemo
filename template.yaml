@@ -19,8 +19,9 @@ Globals:
         port: 7450
         dbUser: idmgtdb2
         dbPassword: 35g8EdSH
+        
  FanOutTopic:
-    Type: Schedule
+    Type: AWS::Events::Rule
   Properties:
     Schedule: "cron(0 7 * * ? *)"
     Name: TestSchedule
