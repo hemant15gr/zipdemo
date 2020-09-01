@@ -20,12 +20,20 @@ Globals:
         dbUser: idmgtdb2
         dbPassword: 35g8EdSH     
 Resources:
+  FanOutTopic:
+    Type: AWS::SNS::Topic
 
   BulkEventsLambda:
     Type: AWS::Serverless::Function
     Properties:
       CodeUri: target/DemoJava-0.0.1-SNAPSHOT.jar
       Handler: demo.test::handler
+      Environment:
+        Variables:
+          FAN_OUT_TOPIC: !Ref FanOutTopic
+      
+      - SNSPublishMessagePolicy:
+          TopicName: !GetAtt FanOutTopic.TopicName
       Events:
         ScheduledEvent:
           Type: Schedule
