@@ -20,41 +20,18 @@ Globals:
         dbUser: idmgtdb2
         dbPassword: 35g8EdSH     
 Resources:
-  PipelineStartBucket:
-    Type: AWS::S3::Bucket
-    Properties:
-      BucketName: !Sub ${AWS::StackName}-${AWS::AccountId}-${AWS::Region}-start
-
-  FanOutTopic:
-    Type: AWS::SNS::Topic
 
   BulkEventsLambda:
     Type: AWS::Serverless::Function
     Properties:
       CodeUri: target/DemoJava-0.0.1-SNAPSHOT.jar
       Handler: demo.test::handler
-      Environment:
-        Variables:
-          FAN_OUT_TOPIC: !Ref FanOutTopic
-      Policies:
-      - S3ReadPolicy:
-          BucketName: !Sub ${AWS::StackName}-${AWS::AccountId}-${AWS::Region}-start
-      - SNSPublishMessagePolicy:
-          TopicName: !GetAtt FanOutTopic.TopicName
       Events:
-        S3Event:
-          Type: S3
+        ScheduledEvent:
+          Type: Schedule
           Properties:
-            Bucket: !Ref PipelineStartBucket
-            Events: s3:ObjectCreated:*
+            Schedule: cron(0 10 ? * * *)
+            Description: Sample Lambda function scheduling with SAM
+            Enabled: True
 
-  SingleEventLambda:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: target/DemoJava-0.0.1-SNAPSHOT.jar
-      Handler: demo.test::handler
-      Events:
-        SnsEvent:
-          Type: SNS
-          Properties:
-            Topic: !Ref FanOutTopic
+ 
