@@ -20,6 +20,11 @@ Globals:
         dbUser: idmgtdb2
         dbPassword: 35g8EdSH     
 Resources:
+   PipelineStartBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub ${AWS::StackName}-${AWS::AccountId}-${AWS::Region}-start
+ 
   FanOutTopic:
     Type: AWS::SNS::Topic
 
@@ -31,6 +36,8 @@ Resources:
       Environment:
         Variables:
           FAN_OUT_TOPIC: !Ref FanOutTopic
+      - S3ReadPolicy:
+          BucketName: !Sub ${AWS::StackName}-${AWS::AccountId}-${AWS::Region}-start
       
       - SNSPublishMessagePolicy:
           TopicName: !GetAtt FanOutTopic.TopicName
