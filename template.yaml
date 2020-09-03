@@ -36,17 +36,21 @@ Resources:
       Environment:
         Variables:
           FAN_OUT_TOPIC: !Ref FanOutTopic
+      VpcConfig:
+        SecurityGroupIds:
+          - sg-040ed53e
+        SubnetIds:
+          - subnet-4305a61c
+          - subnet-6332432e    
+      Policies:
       - S3ReadPolicy:
           BucketName: !Sub ${AWS::StackName}-${AWS::AccountId}-${AWS::Region}-start
-      
       - SNSPublishMessagePolicy:
           TopicName: !GetAtt FanOutTopic.TopicName
       Events:
-        ScheduledEvent:
-          Type: Schedule
+        S3Event:
+          Type: S3
           Properties:
-            Schedule: cron(0 10 ? * * *)
-            Description: Sample Lambda function scheduling with SAM
-            Enabled: True
+            Bucket: !Ref PipelineStartBucket
+            Events: s3:ObjectCreated:*
 
- 
