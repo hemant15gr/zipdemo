@@ -33,16 +33,15 @@ Resources:
   Properties:
       CodeUri: target/DemoJava-0.0.1-SNAPSHOT.jar
       Handler: demo.test::handler
+      VpcConfig:
+        SecurityGroupIds:
+          - sg-040ed53e
+        SubnetIds:
+          - subnet-6a66c00c
+          - subnet-a9029aa7
       Environment:
        Variables:
          FAN_OUT_TOPIC: !Ref FanOutTopic
-       VpcConfig:
-         SecurityGroupIds:
-          - sg-040ed53e
-         SubnetIds:
-          - subnet-4305a61c
-          - subnet-6332432e    
-      Policies:
       - S3ReadPolicy:
           BucketName: !Sub ${AWS::StackName}-${AWS::AccountId}-${AWS::Region}-start
       - SNSPublishMessagePolicy:
