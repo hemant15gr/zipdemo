@@ -3,7 +3,7 @@ Transform: AWS::Serverless-2016-10-31
 Description: chapter5-data-pipeline
 
 Globals:
-  Function:
+ Function:
     Runtime: java8
     MemorySize: 512
     Timeout: 10
@@ -20,23 +20,23 @@ Globals:
         dbUser: idmgtdb2
         dbPassword: 35g8EdSH     
 Resources:
-   PipelineStartBucket:
+ PipelineStartBucket:
     Type: AWS::S3::Bucket
     Properties:
       BucketName: !Sub ${AWS::StackName}-${AWS::AccountId}-${AWS::Region}-start
  
-  FanOutTopic:
-    Type: AWS::SNS::Topic
+ FanOutTopic:
+   Type: AWS::SNS::Topic
 
-  BulkEventsLambda:
-    Type: AWS::Serverless::Function
-    Properties:
+ BulkEventsLambda:
+  Type: AWS::Serverless::Function
+  Properties:
       CodeUri: target/DemoJava-0.0.1-SNAPSHOT.jar
       Handler: demo.test::handler
       Environment:
-        Variables:
-          FAN_OUT_TOPIC: !Ref FanOutTopic
-      VpcConfig:
+       Variables:
+         FAN_OUT_TOPIC: !Ref FanOutTopic
+       VpcConfig:
          SecurityGroupIds:
           - sg-040ed53e
          SubnetIds:
@@ -53,4 +53,3 @@ Resources:
           Properties:
             Bucket: !Ref PipelineStartBucket
             Events: s3:ObjectCreated:*
-
