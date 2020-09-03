@@ -33,6 +33,7 @@ Resources:
   Properties:
       CodeUri: target/DemoJava-0.0.1-SNAPSHOT.jar
       Handler: demo.test::handler
+      Role: 'arn:aws:iam::515025432918:role/service-role/testrole1
       VpcConfig:
         SecurityGroupIds:
           - sg-040ed53e
