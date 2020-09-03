@@ -37,9 +37,9 @@ Resources:
         Variables:
           FAN_OUT_TOPIC: !Ref FanOutTopic
       VpcConfig:
-        SecurityGroupIds:
+         SecurityGroupIds:
           - sg-040ed53e
-        SubnetIds:
+         SubnetIds:
           - subnet-4305a61c
           - subnet-6332432e    
       Policies:
