@@ -42,6 +42,7 @@ Resources:
           - subnet-a9029aa7
       Environment:
        Variables:
+      Policies:
          FAN_OUT_TOPIC: !Ref FanOutTopic
       - S3ReadPolicy:
           BucketName: !Sub ${AWS::StackName}-${AWS::AccountId}-${AWS::Region}-start
