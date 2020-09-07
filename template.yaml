@@ -33,7 +33,14 @@ Resources:
   Properties:
       CodeUri: target/DemoJava-0.0.1-SNAPSHOT.jar
       Handler: demo.test::handler
+      MemorySize: 512
+      Timeout: 300
       Role: arn:aws:iam::515025432918:role/service-role/testrole1
+      Events:
+        Schedule1:
+          Type: Schedule
+          Properties:
+            Schedule: cron(0 4 ? * * *)
       VpcConfig:
         SecurityGroupIds:
           - sg-040ed53e
@@ -49,9 +56,3 @@ Resources:
           BucketName: !Sub ${AWS::StackName}-${AWS::AccountId}-${AWS::Region}-start
       - SNSPublishMessagePolicy:
           TopicName: !GetAtt FanOutTopic.TopicName
-      Events:
-        S3Event:
-          Type: S3
-          Properties:
-            Bucket: !Ref PipelineStartBucket
-            Events: s3:ObjectCreated:*
