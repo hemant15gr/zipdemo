@@ -51,7 +51,7 @@ Resources:
           BucketName: !Sub ${AWS::StackName}-${AWS::AccountId}-${AWS::Region}-start
       - SNSPublishMessagePolicy:
           TopicName: !GetAtt FanOutTopic.TopicName
-    SingleEventLambda:
+  SingleEventLambda:
     Type: AWS::Serverless::Function
     Properties:
       CodeUri: target/DemoJava-0.0.1-SNAPSHOT.jar
@@ -65,7 +65,7 @@ Resources:
         SubnetIds:
           - subnet-6a66c00c
           - subnet-a9029aa7
-    MystateMachine:
+  MystateMachine:
     Type: AWS::Serverless::StateMachine
     Properties:
       DefinitionUri: statemachine.json
@@ -74,4 +74,3 @@ Resources:
           Type: Schedule
           Properties:
             Schedule: cron(0 4 ? * * *)
-          
