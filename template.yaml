@@ -45,32 +45,23 @@ Resources:
     SingleEventLambda: 
       Properties: 
         CodeUri: target/DemoJava-0.0.1-SNAPSHOT.jar
-        Environment: ~
-        Handler: "demo.test::handler"
-        MemorySize: 512
-        Policies: 
-          - 
-            S3ReadPolicy: 
-              BucketName: "${AWS::StackName}-${AWS::AccountId}-${AWS::Region}-start"
-          - 
-            SNSPublishMessagePolicy: 
-              TopicName: FanOutTopic.TopicName
-        Role: "arn:aws:iam::515025432918:role/service-role/testrole1"
-        Timeout: 300
+        Environment: 
         Variables: 
           FAN_OUT_TOPIC: FanOutTopic
-        VpcConfig: 
-          SecurityGroupIds: 
-            - sg-040ed53e
-          SubnetIds: 
-            - subnet-6a66c00c
-            - subnet-a9029aa7
-      Type: "AWS::Serverless::Function"
-    Type: "AWS::Serverless::Function"
-  FanOutTopic: 
-    Type: "AWS::SNS::Topic"
-  PipelineStartBucket: 
-    Properties: 
-      BucketName: "${AWS::StackName}-${AWS::AccountId}-${AWS::Region}-start"
-    Type: "AWS::S3::Bucket"
-Transform: "AWS::Serverless-2016-10-31"
+      Handler: "demo.test::handler"
+      MemorySize: 512
+      Policies: 
+        - 
+          S3ReadPolicy: 
+            BucketName: "${AWS::StackName}-${AWS::AccountId}-${AWS::Region}-start"
+        - 
+          SNSPublishMessagePolicy: 
+            TopicName: FanOutTopic.TopicName
+      Role: "arn:aws:iam::515025432918:role/service-role/testrole1"
+      Timeout: 300
+      VpcConfig: 
+        SecurityGroupIds: 
+          - sg-040ed53e
+        SubnetIds: 
+          - subnet-6a66c00c
+          - subnet-a9029aa7
