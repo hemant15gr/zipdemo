@@ -46,6 +46,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties: 
       CodeUri: target/DemoJava-0.0.1-SNAPSHOT.jar
+      Handler: "demo.test::handler"
       Events: 
         SnsEvent: 
           Properties: 
