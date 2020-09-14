@@ -31,7 +31,6 @@ Resources:
  BulkEventsLambda:
   Type: AWS::Serverless::Function
   Properties:
-      Name: BulkEventsLambda-one
       CodeUri: target/DemoJava-0.0.1-SNAPSHOT.jar
       Handler: demo.test::handler
       MemorySize: 512
@@ -55,7 +54,6 @@ Resources:
   SingleEventLambda:
     Type: AWS::Serverless::Function
     Properties:
-      Name: SingleEventsLambda-one
       CodeUri: target/DemoJava-0.0.1-SNAPSHOT.jar
       Handler: demo.test::handler
       MemorySize: 512
@@ -67,12 +65,3 @@ Resources:
         SubnetIds:
           - subnet-6a66c00c
           - subnet-a9029aa7
-  MystateMachine:
-    Type: AWS::Serverless::StateMachine
-    Properties:
-      DefinitionUri: statemachine.json
-      Events:
-        Schedule1:
-          Type: Schedule
-          Properties:
-            Schedule: cron(0 4 ? * * *)
