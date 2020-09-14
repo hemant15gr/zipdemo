@@ -55,6 +55,7 @@ Resources:
   SingleEventLambda:
     Type: AWS::Serverless::Function
     Properties:
+      Name: 'SingleEventsLambda-one'
       CodeUri: target/DemoJava-0.0.1-SNAPSHOT.jar
       Handler: demo.test::handler
       MemorySize: 512
