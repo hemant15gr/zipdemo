@@ -48,6 +48,6 @@ Resources:
         Handler: "demo.test::handler" 
         Events:
         SnsEvent:
-          Type: SNS
-          Properties:
+           Type: SNS
+           Properties:
             Topic: !Ref FanOutTopic
