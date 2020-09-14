@@ -65,8 +65,13 @@ Resources:
         SubnetIds:
           - subnet-6a66c00c
           - subnet-a9029aa7
-      Events:
-        SnsEvent:
-          Type: SNS
-          Properties:
-            Topic: !Ref FanOutTopic
+       Environment:
+       Variables:
+     
+         FAN_OUT_TOPIC: !Ref FanOutTopic
+      Policies:   
+      - S3ReadPolicy:
+          BucketName: !Sub ${AWS::StackName}-${AWS::AccountId}-${AWS::Region}-start
+      - SNSPublishMessagePolicy:
+          TopicName: !GetAtt FanOutTopic.TopicName   
+      
