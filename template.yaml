@@ -1,4 +1,3 @@
---- 
 AWSTemplateFormatVersion: 2010-09-09
 Description: chapter5-data-pipeline
 Globals: 
