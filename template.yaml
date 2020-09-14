@@ -47,7 +47,7 @@ Resources:
         CodeUri: target/DemoJava-0.0.1-SNAPSHOT.jar
         Handler: "demo.test::handler" 
         Events:
-        SnsEvent:
+          SnsEvent:
            Type: SNS
            Properties:
             Topic: !Ref FanOutTopic
