@@ -18,7 +18,8 @@ Globals:
     Runtime: java8
     Timeout: 10
 Resources: 
-  BulkEventsLambda: 
+  BulkEventsLambda:
+    Type: AWS::Serverless::Function
     Properties: 
       CodeUri: target/DemoJava-0.0.1-SNAPSHOT.jar
       Environment: 
@@ -41,7 +42,8 @@ Resources:
         SubnetIds: 
           - subnet-6a66c00c
           - subnet-a9029aa7
-    SingleEventLambda: 
+    SingleEventLambda:
+      Type: AWS::Serverless::Function
       Properties: 
         CodeUri: target/DemoJava-0.0.1-SNAPSHOT.jar
         Handler: "demo.test::handler" 
