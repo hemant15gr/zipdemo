@@ -99,4 +99,4 @@ Resources:
      Targets:
        -
        Arn: !Ref MyStateMachine
-       RoleArn: "arn:aws:iam::515025432918:role/service-role/testrole1"  
+     RoleArn: "arn:aws:iam::515025432918:role/service-role/testrole1"  
