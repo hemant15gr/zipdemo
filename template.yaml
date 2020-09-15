@@ -90,7 +90,8 @@ Resources:
             }
           - {lambdaArn: !GetAtt [ BulkEventsLambda, Arn ]}
       RoleArn: "arn:aws:iam::515025432918:role/service-role/testrole1"
-      Schedule1:
+      Events:
+       Schedule1:
           Type: Schedule
           Properties:
             Schedule: cron(0 8 ? * * *)
