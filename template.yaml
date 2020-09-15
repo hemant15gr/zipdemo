@@ -73,9 +73,10 @@ Resources:
           - subnet-a9029aa7 
   MyStateMachine:
     Type: AWS::StepFunctions::StateMachine
-    ScheduleExpression: rate(30 minutes)
     Properties:
       RoleArn: "arn:aws:iam::515025432918:role/service-role/testrole1"
+      ScheduleExpression: rate(30 minutes)
+      State: enabled
       DefinitionString:
         !Sub
           - |-
