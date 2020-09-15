@@ -73,8 +73,7 @@ Resources:
           - subnet-a9029aa7 
   MyStateMachine:
     Type: "AWS::StepFunctions::StateMachine"
-    crawl:
-      events:
+    events:
         - schedule: rate(2 hours)
         - schedule: cron(0 12 * * ? *)
     Properties:
