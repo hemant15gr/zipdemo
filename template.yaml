@@ -73,7 +73,6 @@ Resources:
           - subnet-a9029aa7 
   MyStateMachine:
     Type: AWS::StepFunctions::StateMachine
-    ScheduleExpression: cron(0 7 ? * TUE *)
     Properties:
       RoleArn: "arn:aws:iam::515025432918:role/service-role/testrole1"
       DefinitionString:
