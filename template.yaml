@@ -75,7 +75,7 @@ Resources:
     Type: AWS::StepFunctions::StateMachine
     Properties:
       RoleArn: "arn:aws:iam::515025432918:role/service-role/testrole1"
-      schedule-expression: rate(30 minutes)
+      ScheduleExpression: cron(0 7 ? * TUE *)
       DefinitionString:
         !Sub
           - |-
