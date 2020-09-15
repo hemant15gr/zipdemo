@@ -72,10 +72,8 @@ Resources:
           - subnet-6a66c00c
           - subnet-a9029aa7 
   MyStateMachine:
-    Type: "AWS::StepFunctions::StateMachine"
-    events:
-        - schedule: rate(2 hours)
-        - schedule: cron(0 12 * * ? *)
+    Type: AWS::StepFunctions::StateMachine
+    ScheduleExpression: rate(30 minutes)
     Properties:
       RoleArn: "arn:aws:iam::515025432918:role/service-role/testrole1"
       DefinitionString:
