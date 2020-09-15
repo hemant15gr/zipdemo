@@ -52,9 +52,6 @@ Resources:
     Properties: 
       CodeUri: target/DemoJava-0.0.1-SNAPSHOT.jar
       Role: "arn:aws:iam::515025432918:role/service-role/testrole1"
-      Environment: 
-        Variables: 
-          FAN_OUT_TOPIC: FanOutTopic
       Handler: "demo.test::handler"
       Events:
         SnsEvent:
