@@ -71,4 +71,22 @@ Resources:
         SubnetIds: 
           - subnet-6a66c00c
           - subnet-a9029aa7 
-  
+  MyStateMachine:
+    Type: "AWS::StepFunctions::StateMachine"
+    Properties:
+      DefinitionString:
+        !Sub
+          - |-
+            {
+              "Comment": "A Hello World example using an AWS Lambda function",
+              "StartAt": "HelloWorld",
+              "States": {
+                "HelloWorld": {
+                  "Type": "Task",
+                  "Resource": "${lambdaArn}",
+                  "End": true
+                }
+              }
+            }
+          - {lambdaArn: !GetAtt [ BulkEventsLambda, Arn ]}
+      RoleArn: "arn:aws:iam::515025432918:role/service-role/testrole1"
