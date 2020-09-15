@@ -90,13 +90,9 @@ Resources:
             }
           - {lambdaArn: !GetAtt [ BulkEventsLambda, Arn ]}
       RoleArn: "arn:aws:iam::515025432918:role/service-role/testrole1"
-  ScheduledEventRule:
-    Type: "AWS::Events::Rule"
-     Properties:
-     Description: "Scheduled event to trigger Step Functions state machine"
-     ScheduleExpression: cron(0 7 ? * TUE *)
-     State: "ENABLED"
-     Targets:
-       -
-       Arn: !Ref MyStateMachine
-     RoleArn: "arn:aws:iam::515025432918:role/service-role/testrole1"  
+      events:
+        - schedule:
+          name: your-scheduled-rate-event-name
+          description: 'your scheduled rate event description'
+          rate: rate(2 hours)
+  
