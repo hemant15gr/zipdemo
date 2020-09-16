@@ -101,7 +101,7 @@ Resources:
       Targets:
         -
           Arn: !Ref MyStateMachine
-          Id: !GetAtt StateMachine.Name
+          Id: !GetAtt MyStateMachine.Name
           RoleArn: "arn:aws:iam::515025432918:role/service-role/testrole1"     
  
       
