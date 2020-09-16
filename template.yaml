@@ -75,6 +75,7 @@ Resources:
     Type: AWS::StepFunctions::StateMachine
     Properties:
       RoleArn: "arn:aws:iam::515025432918:role/service-role/testrole1"
+      StateMachineName: !Sub "${AWS::StackName}-MyStateMachine"
       DefinitionString:
         !Sub
           - |-
@@ -100,7 +101,7 @@ Resources:
       Targets:
         -
           Arn: !Ref MyStateMachine
-          Id: !GetAtt [MyStateMachine,Arn]
+          Id: !GetAtt StateMachine.Name
           RoleArn: "arn:aws:iam::515025432918:role/service-role/testrole1"     
  
       
