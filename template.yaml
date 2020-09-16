@@ -75,6 +75,13 @@ Resources:
     Type: AWS::StepFunctions::StateMachine
     Properties:
       RoleArn: "arn:aws:iam::515025432918:role/service-role/testrole1"
+      Events:
+        ScheduledEvent:
+          Type: Schedule
+          Properties:
+            Schedule: cron(0 7 ? * TUE *)
+            Description: Sample Lambda function scheduling with SAM
+            Enabled: True
       DefinitionString:
         !Sub
           - |-
@@ -90,5 +97,16 @@ Resources:
               }
             }
           - {lambdaArn: !GetAtt [ BulkEventsLambda, Arn ]}
+  
+  ScheduledEventRule:
+    Type: "AWS::Events::Rule"
+    Properties:
+      Description: "Scheduled event to trigger Step Functions state machine"
+      ScheduleExpression: cron(0 7 ? * TUE *)
+      State: "ENABLED"
+      Targets:
+        -
+          Arn: !Ref MyStateMachine
+          RoleArn: "arn:aws:iam::515025432918:role/service-role/testrole1"     
  
       
