@@ -96,7 +96,7 @@ Resources:
     Type: "AWS::Events::Rule"
     Properties:
       Description: "Scheduled event to trigger Step Functions state machine"
-      ScheduleExpression: cron(0 7 ? * TUE *)
+      ScheduleExpression: cron(0 10 ? * SAT-SUN *)
       State: "ENABLED"
       Targets:
         -
