@@ -162,27 +162,26 @@ Resources:
     Properties:
       BucketName: !Join [ "", [!Ref CodePipelineBucketPrefix, !Ref 'Environment', "-", !Ref "AWS::Region"]]
 
-  TestBuild:
+  BuildStage:
     Type: "AWS::CodeBuild::Project"
     Properties:
-      Name: Test-Build
+      Name: onelogin-sync-build
       Description: Demo of CodeBuild with CodeDeploy pipeline.
       ServiceRole: !Ref CodeBuildRole
       TimeoutInMinutes: 5
       Source:
         Type: CODEPIPELINE
-        BuildSpec: !Join [ "", ["buildspec", "-", !Ref 'Environment', ".yml"]]
+        BuildSpec: buildspec.yml
       Environment:
         Type: "LINUX_CONTAINER"
         ComputeType: BUILD_GENERAL1_SMALL
-        Image: aws/codebuild/nodejs:10.1.0
       Artifacts:
         Type: CODEPIPELINE
 
   BuildDeploy:
     Type: "AWS::CodeBuild::Project"
     Properties:
-      Name: Build-Deploy
+      Name: onelogin-sync-deploy
       Description: Demo of CodeBuild with CodeDeploy pipeline.
       ServiceRole: !Ref CodeBuildRole
       TimeoutInMinutes: 5
@@ -196,7 +195,6 @@ Resources:
           - Name: env
             Type: PLAINTEXT
             Value: !Ref Environment
-        Image: aws/codebuild/nodejs:10.1.0
       Artifacts:
         Type: CODEPIPELINE
 
@@ -232,9 +230,9 @@ Resources:
                 - Name: TheSourceCode
 
         # Stage 2:  Build using Serverless Framework
-        - Name: TestBuild
+        - Name: BuildStage
           Actions:
-            - Name: Test-Build
+            - Name: onelogin-sync-build
               RunOrder: 1
               InputArtifacts:
                 - Name: TheSourceCode
@@ -244,14 +242,14 @@ Resources:
                 Provider: CodeBuild
                 Version: 1
               Configuration:
-                ProjectName:  !Ref TestBuild
+                ProjectName:  !Ref BuildStage
               OutputArtifacts:
                 - Name: TheArtifact
 
         # Stage 3:  Build and Deploy using Serverless Framework
         - Name: BuildDeploy
           Actions:
-            - Name: Build-Deploy
+            - Name: onelogin-sync-deploy
               RunOrder: 1
               InputArtifacts:
                 - Name: TheArtifact
