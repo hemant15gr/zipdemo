@@ -103,5 +103,3 @@ Resources:
           Arn: !Ref MyStateMachine
           Id: !GetAtt MyStateMachine.Name
           RoleArn: "arn:aws:iam::515025432918:role/service-role/testrole1"     
- 
-      
