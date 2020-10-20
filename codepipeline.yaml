@@ -33,7 +33,7 @@ Parameters:
 
   GitHubRepository:
     Type: String
-    Default: getcft/aws-serverless-code-pipeline-cfn-template/master
+    Default: hemant15gr/zipdemo/master
     Description:  owner/repository/branch
 
   GitHubOAuthToken:
