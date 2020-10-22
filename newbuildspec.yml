@@ -14,6 +14,7 @@ phases:
     commands:
       - echo "Creating Maven Jar File"
   build:
+    commands:
       - echo Build started on `date`
       - aws cloudformation package --debug --template-file template.yml --s3-bucket hemantsambucket --output-template-file packaged-template.yml
   post_build:
