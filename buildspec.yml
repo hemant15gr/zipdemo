@@ -15,7 +15,8 @@ phases:
       - echo Build started on `date`
       - mvn clean package
       - aws cloudformation package --debug --template-file template.yaml --s3-bucket hemantsambucket --output-template-file  packaged-template.yaml
-  files:
+  artifacts:
+   files:
       - target/DemoJava-0.0.1-SNAPSHOT.jar
       - packaged-template.yaml
 cache:
