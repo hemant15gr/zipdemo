@@ -254,7 +254,7 @@ Resources:
             - Name: onelogin-sync-deploy
               RunOrder: 1
               InputArtifacts:
-                - Name: TheArtifact
+                - Name: TheSourceCode
               ActionTypeId:
                 Category: Build
                 Owner: AWS
