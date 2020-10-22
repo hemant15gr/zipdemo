@@ -20,7 +20,7 @@ phases:
 artifacts:
   files:
     - target/DemoJava-0.0.1-SNAPSHOT.jar
-    - packaged-template.yam
+    - packaged-template.yaml
 cache:
   # Cache maven and Python downloads
   paths:
