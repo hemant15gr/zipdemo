@@ -12,4 +12,4 @@ phases:
   build:
     commands:
       #- sam deploy --template-file  $CODEBUILD_SRC_DIR/artifacts/packaged-template.yaml --stack-name ${APP_STACK_NAME} --capabilities CAPABILITY_IAM --no-fail-on-empty-changeset
-      - sam deploy --template-file   packaged-template.yaml --stack-name ${APP_STACK_NAME} --capabilities CAPABILITY_IAM --no-fail-on-empty-changeset
+      - sam deploy --template-file   packaged-template.yaml --stack-name ${APP_STACK_NAME} --capabilities CAPABILITY_NAMED_IAM
