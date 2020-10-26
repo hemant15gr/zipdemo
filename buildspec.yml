@@ -6,7 +6,7 @@ phases:
       java: openjdk8
     commands:
 # This isn't necessary at the moment, but sometimes the build images fall behind current version of the AWS CLI
-#      - pip install --upgrade awscli
+      - pip install --upgrade awscli
       - pip install --user aws-sam-cli
       - USER_BASE_PATH=$(python -m site --user-base)
       - export PATH=$PATH:$USER_BASE_PATH/bin
